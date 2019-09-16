@@ -50,9 +50,9 @@ function addTask(id, task) {
 }
 
 function addResource(id, resource) {
-  // return db('resource')
-  //   .insert(resource)
-  //   .then(([resourceId]));
+  return db("resource")
+    .insert(resource)
+    .then([resourceId]);
 }
 
 function updateProject(id, changes) {}

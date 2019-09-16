@@ -71,6 +71,7 @@ router.post("/", (req, res) => {
 
   Projects.addProject(projectData)
     .then(project => {
+      project.completed = !!parseInt(project.completed);
       res.status(201).json(project);
     })
     .catch(err => {
@@ -91,6 +92,7 @@ router.post("/:id/tasks", (req, res) => {
 
   Projects.addTask(id, taskData)
     .then(task => {
+      task.completed = !!parseInt(task.completed);
       res.status(201).json(task);
     })
     .catch(err => {
@@ -101,8 +103,8 @@ router.post("/:id/tasks", (req, res) => {
     });
 });
 
-router.post("/:id/resources", (req, res) => {
-  const { id } = req.params;
+router.post("/:project_id/resources", (req, res) => {
+  const { project_id } = req.params;
   const resourceData = req.body;
 
   if (!Object.keys(resourceData).includes("name")) {
@@ -113,7 +115,7 @@ router.post("/:id/resources", (req, res) => {
     .insert(resourceData)
     .then(([resourceId]) => {
       db("project-resources")
-        .insert({ project_id: id, resource_id: resourceId })
+        .insert({ project_id, resource_id: resourceId })
         .then(success => {
           Projects.getResources(id)
             .then(resources => {

@@ -5,6 +5,9 @@
   "repository": "https://github.com/jli226/node-db-challenge.git",
   "author": "Jenny Li <jli226@fordham.edu>",
   "license": "MIT",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.19.4",
